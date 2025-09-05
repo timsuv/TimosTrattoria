@@ -1,0 +1,224 @@
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+
+:root {
+    --floral-white: #fdfaf1;
+    --emerald: #69b578;
+    --fern-green: #3a7d44;
+    --cal-poly-green: #254d32;
+    --raisin-black: #181d27;
+}
+
+/*custom colors */
+body {
+    background-color: var(--floral-white);
+    color: var(--raisin-black);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* primary */
+.bg-primary-brand {
+    background-color: var(--cal-poly-green) !important;
+}
+
+.bg-secondary-brand {
+    background-color: var(--emerald) !important;
+}
+
+.bg-accent-brand {
+    background-color: var(--fern-green) !important;
+}
+
+.bg-light-brand {
+    background-color: var(--floral-white) !important;
+}
+
+.bg-dark-brand {
+    background-color: var(--raisin-black) !important;
+}
+
+.text-primary-brand {
+    color: var(--cal-poly-green) !important;
+}
+
+.text-secondary-brand {
+    color: var(--emerald) !important;
+}
+
+.text-accent-brand {
+    color: var(--fern-green) !important;
+}
+
+.text-light-brand {
+    color: var(--floral-white) !important;
+}
+
+.text-dark-brand {
+    color: var(--raisin-black) !important;
+}
+
+/* custom btns */
+.btn-primary-brand {
+    background-color: var(--cal-poly-green);
+    border-color: var(--cal-poly-green);
+    color: var(--floral-white);
+}
+
+    .btn-primary-brand:hover {
+        background-color: var(--fern-green);
+        border-color: var(--fern-green);
+    }
+
+.btn-secondary-brand {
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+    color: var(--floral-white);
+}
+
+    .btn-secondary-brand:hover {
+        background-color: var(--fern-green);
+        border-color: var(--fern-green);
+    }
+
+.btn-outline-brand {
+    border-color: var(--floral-white);
+    color: var(--floral-white);
+}
+
+    .btn-outline-brand:hover {
+        background-color: var(--floral-white);
+        color: var(--cal-poly-green);
+    }
+
+/* nav */
+.navbar-brand-custom {
+    color: var(--floral-white) !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-nav-custom .nav-link {
+    color: var(--floral-white) !important;
+    transition: color 0.3s ease;
+}
+
+    .navbar-nav-custom .nav-link:hover,
+    .navbar-nav-custom .nav-link.active {
+        color: var(--emerald) !important;
+        font-weight: 600;
+    }
+
+/* card */
+.card-custom {
+    background-color: var(--floral-white);
+    border: 1px solid #e0d5b7;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-muted {
+    background-color: #f8f6f0;
+}
+
+/* hero */
+.hero-section {
+    background-color: var(--cal-poly-green);
+    color: var(--floral-white);
+    padding: 80px 0;
+}
+
+/* feature cards */
+.feature-card {
+    background-color: var(--floral-white);
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.menu-item {
+    background-color: var(--floral-white);
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: 10rem;
+}
+
+.menu-price {
+    color: var(--fern-green);
+    font-weight: bold;
+}
+
+.admin-card {
+    background-color: var(--floral-white);
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.table-custom {
+    background-color: var(--floral-white);
+}
+
+    .table-custom th {
+        background-color: var(--cal-poly-green);
+        color: var(--floral-white);
+        border: none;
+    }
+
+    .table-custom td {
+        border-color: #e0d5b7;
+    }
+
+.badge-confirmed {
+    background-color: var(--emerald);
+}
+
+.badge-pending {
+    background-color: #ffc107;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+}
+
+.text-muted-custom {
+    color: #6c757d;
+}
+
+.section-padding {
+    padding: 4rem 0;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-section {
+        padding: 60px 0;
+    }
+}

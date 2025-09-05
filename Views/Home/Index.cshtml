@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="bg-light-brand min-vh-100">
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="hero-title">Benvenuti alla Timo's Trattoria</h1>
+            <p class="lead mb-4 mx-auto" style="max-width: 600px;">
+                Experience authentic Italian cuisine prepared with love using traditional family recipes passed down through generations.
+            </p>
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <a asp-controller="Menu" class="btn btn-secondary-brand btn-lg px-4 py-2">View Menu</a>
+                <a asp-controller="Booking" class="btn btn-outline-brand btn-lg px-4 py-2">Make Reservation</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="display-5 fw-bold mb-4 text-dark-brand">Our Story</h2>
+                    <p class="text-muted-custom mb-3 lh-lg">
+                        Founded in 1952 by Timo Rossi, our family restaurant has been serving
+                        authentic Italian dishes for over 70 years. Every recipe is crafted with the
+                        finest imported ingredients and prepared with the same passion that Timo
+                        brought to his kitchen.
+                    </p>
+                    <p class="text-muted-custom lh-lg">
+                        From our homemade pasta to our wood-fired pizzas, every dish tells a story
+                        of tradition, family, and love for genuine Italian flavors.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-muted p-5 rounded text-center">
+                        <div class="mb-3" style="font-size: 4rem;">🍕</div>
+                        <h3 class="h4 fw-bold mb-2 text-dark-brand">Family Tradition</h3>
+                        <p class="text-muted-custom mb-0">70+ years of authentic Italian cooking</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-light">
+        <div class="container">
+            <h2 class="display-5 fw-bold text-center mb-5 text-dark-brand">Why Choose Us</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="mb-3" style="font-size: 3rem;">🌿</div>
+                        <h3 class="h5 fw-bold mb-3 text-dark-brand">Fresh Ingredients</h3>
+                        <p class="text-muted-custom mb-0">
+                            We source the finest Italian ingredients and fresh local produce daily.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="mb-3" style="font-size: 3rem;">👨‍🍳</div>
+                        <h3 class="h5 fw-bold mb-3 text-dark-brand">Expert Chefs</h3>
+                        <p class="text-muted-custom mb-0">
+                            Our chefs trained in Italy bring authentic techniques to every dish.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="mb-3" style="font-size: 3rem;">❤️</div>
+                        <h3 class="h5 fw-bold mb-3 text-dark-brand">Made with Love</h3>
+                        <p class="text-muted-custom mb-0">
+                            Every meal is prepared with the care and passion of Italian home cooking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+</div>

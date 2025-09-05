@@ -1,0 +1,211 @@
+﻿@model IEnumerable<RestautantMvc.DTOs.MenuItemResponse>
+@{
+    ViewData["Title"] = "La Nostra Menu";
+}
+
+<div class="bg-light-brand min-vh-100">
+    <section class="bg-primary-brand text-light-brand py-5">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">La Nostra Menu</h1>
+            <p class="lead">Authentic Italian dishes prepared with traditional recipes</p>
+        </div>
+    </section>
+
+    <!-- error -->
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="container mt-3">
+            <div class="alert alert-warning" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        </div>
+    }
+
+    <!-- menu sections -->
+    <div class="container py-5">
+        @if (Model.Any())
+        {
+            <!-- antipasti -->
+            var antipasti = Model.Where(item => item.Category == RestautantMvc.Models.MenuCategory.Antipasti);
+
+            @if (antipasti.Any())
+            {
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <div style="font-size: 3rem;" class="mb-2">🥗</div>
+                        <h2 class="display-6 fw-bold text-dark-brand">Antipasti</h2>
+                    </div>
+
+                    <div class="row g-3">
+                        @foreach (var item in antipasti)
+                        {
+                            <div class="col-md-6">
+                                <div class="menu-item">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h3 class="h5 fw-semibold text-dark-brand mb-0">@item.Name</h3>
+                                        <span class="menu-price h5 mb-0">@item.Price.ToString("F2")kr.</span>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="text-muted-custom mb-0">@item.Description</p>
+                                    }
+                                    @if (item.IsPopular)
+                                    {
+                                        <span class="badge bg-warning text-dark mt-1">Popular</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
+            <!-- primi -->
+            var primiPiatti = Model.Where(item => item.Category == RestautantMvc.Models.MenuCategory.PrimiPiatti);
+
+            @if (primiPiatti.Any())
+            {
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <div style="font-size: 3rem;" class="mb-2">🍝</div>
+                        <h2 class="display-6 fw-bold text-dark-brand">Primi Piatti</h2>
+                    </div>
+
+                    <div class="row g-3">
+                        @foreach (var item in primiPiatti)
+                        {
+                            <div class="col-md-6">
+                                <div class="menu-item">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h3 class="h5 fw-semibold text-dark-brand mb-0">@item.Name</h3>
+                                        <span class="menu-price h5 mb-0">@item.Price.ToString("F2")kr.</span>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="text-muted-custom mb-0">@item.Description</p>
+                                    }
+                                    @if (item.IsPopular)
+                                    {
+                                        <span class="badge bg-warning text-dark mt-1">Popular</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
+            <!-- secondi -->
+            var secondiPiatti = Model.Where(item => item.Category == RestautantMvc.Models.MenuCategory.SecondiPiatti);
+
+            @if (secondiPiatti.Any())
+            {
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <div style="font-size: 3rem;" class="mb-2">🍖</div>
+                        <h2 class="display-6 fw-bold text-dark-brand">Secondi Piatti</h2>
+                    </div>
+
+                    <div class="row g-3">
+                        @foreach (var item in secondiPiatti)
+                        {
+                            <div class="col-md-6">
+                                <div class="menu-item">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h3 class="h5 fw-semibold text-dark-brand mb-0">@item.Name</h3>
+                                        <span class="menu-price h5 mb-0">@item.Price.ToString("F2")kr.</span>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="text-muted-custom mb-0">@item.Description</p>
+                                    }
+                                    @if (item.IsPopular)
+                                    {
+                                        <span class="badge bg-warning text-dark mt-1">Popular</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
+            <!-- pízza -->
+            var pizza = Model.Where(item => item.Category == RestautantMvc.Models.MenuCategory.Pizza);
+
+            @if (pizza.Any())
+            {
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <div style="font-size: 3rem;" class="mb-2">🍕</div>
+                        <h2 class="display-6 fw-bold text-dark-brand">Pizza</h2>
+                    </div>
+
+                    <div class="row g-3">
+                        @foreach (var item in pizza)
+                        {
+                            <div class="col-md-6">
+                                <div class="menu-item">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h3 class="h5 fw-semibold text-dark-brand mb-0">@item.Name</h3>
+                                        <span class="menu-price h5 mb-0">@item.Price.ToString("F2")kr.</span>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="text-muted-custom mb-0">@item.Description</p>
+                                    }
+                                    @if (item.IsPopular)
+                                    {
+                                        <span class="badge bg-warning text-dark mt-1">Popular</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
+            <!-- dolci -->
+            var dolci = Model.Where(item => item.Category == RestautantMvc.Models.MenuCategory.Dolci);
+
+            @if (dolci.Any())
+            {
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <div style="font-size: 3rem;" class="mb-2">🍰</div>
+                        <h2 class="display-6 fw-bold text-dark-brand">Dolci</h2>
+                    </div>
+
+                    <div class="row g-3">
+                        @foreach (var item in dolci)
+                        {
+                            <div class="col-md-6">
+                                <div class="menu-item">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h3 class="h5 fw-semibold text-dark-brand mb-0">@item.Name</h3>
+                                        <span class="menu-price h5 mb-0">@item.Price.ToString("F2")kr.</span>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="text-muted-custom mb-0">@item.Description</p>
+                                    }
+                                    @if (item.IsPopular)
+                                    {
+                                        <span class="badge bg-warning text-dark mt-1">Popular</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <h3 class="text-muted">No menu items available at this time.</h3>
+                <p class="text-muted">Please check back later or contact us for more information.</p>
+            </div>
+        }
+    </div>
+</div>

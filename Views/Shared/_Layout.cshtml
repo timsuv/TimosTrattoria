@@ -1,0 +1,98 @@
+﻿@{
+    var currentPath = Context.Request.Path.Value?.ToLower() ?? "";
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Timo´s Trattoria</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RestautantMvc.styles.css" asp-append-version="true" />
+   <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary-brand sticky-top mb-4">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand navbar-brand-custom">
+                    🍝 Timo's Trattoria
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        style="border-color: var(--floral-white)">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto navbar-nav-custom">
+                        <li class="nav-item">
+                            <a asp-controller="Home"
+                               asp-action="Index"
+                               class="nav-link @(currentPath == "/" ? "active" : "")">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Menu"
+                               asp-action="Index"
+                               class="nav-link @(controller?.ToLower() == "menu" ? "active" : "")"> 
+                                Menu
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Admin"
+                               asp-action="Index"
+                               class="nav-link @(controller?.ToLower() == "admin" ? "active" : "")">
+                                Admin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="section-padding bg-accent-brand text-light-brand">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-5">Visit Us Today</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-5 mb-4 mb-md-0">
+                    <h3 class="h5 fw-bold mb-3">Location</h3>
+                    <p class="mb-0">
+                        Storgatan 55<br />
+                        Stockholm
+                        <br />
+
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    <h3 class="h5 fw-bold mb-3">Hours</h3>
+                    <p class="mb-0">
+                        Mon-Thu: 11:00-00:00<br />
+                        Fri-Sat: 11:00-late<br />
+                        Sun: 12:00-21:00
+                    </p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a href="tel:0761772149" class="h5  link-primary fw-semibold text-light-brand   ">08 31 01 00</a>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
