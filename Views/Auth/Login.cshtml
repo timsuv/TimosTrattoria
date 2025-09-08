@@ -1,0 +1,105 @@
+﻿@using RestautantMvc.ViewModels
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Admin Login";
+}
+<div class="bg-light-brand min-vh-100">
+    <!-- Header -->
+    <section class="bg-primary-brand text-light-brand py-5">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold mb-3">🔐 Admin Login</h1>
+            <p class="lead">Access the restaurant management panel</p>
+        </div>
+    </section>
+
+    <!-- Login Form -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-card p-4 rounded shadow">
+                    <div class="text-center mb-4">
+                        <div style="font-size: 4rem;" class="mb-3">👨‍🍳</div>
+                        <h2 class="h4 text-dark-brand mb-0">Welcome Back</h2>
+                        <p class="text-muted-custom">Sign in to manage your restaurant</p>
+                    </div>
+
+                    <!-- Display validation summary -->
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <!-- Success/Error Messages -->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Login" asp-controller="Auth" method="post" class="login-form">
+                        <input asp-for="ReturnUrl" type="hidden" />
+
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label fw-semibold text-dark-brand">
+                                <i class="bi bi-person-circle me-2"></i>Username
+                            </label>
+                            <input asp-for="Username"
+                                   class="form-control form-control-custom"
+                                   placeholder="Enter your username"
+                                   autocomplete="username" />
+                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-semibold text-dark-brand">
+                                <i class="bi bi-lock-fill me-2"></i>Password
+                            </label>
+                            <input asp-for="Password"
+                                   class="form-control form-control-custom"
+                                   placeholder="Enter your password"
+                                   autocomplete="current-password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                                <label asp-for="RememberMe" class="form-check-label text-muted-custom">
+                                    Remember me on this device
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary-brand btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <small class="text-muted-custom">
+                            <i class="bi bi-shield-lock me-1"></i>
+                            Secure admin access only
+                        </small>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

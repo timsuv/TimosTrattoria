@@ -13,7 +13,18 @@ namespace RestautantMvc
                 client.BaseAddress = new Uri("https://localhost:7189/api/");
             });
             builder.Services.AddScoped<IMenuApiService, MenuApiService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+            });
+
+            builder.Services.AddHttpContextAccessor();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -31,6 +42,7 @@ namespace RestautantMvc
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
