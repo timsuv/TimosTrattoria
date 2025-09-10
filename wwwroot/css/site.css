@@ -4,14 +4,22 @@ html {
     font-size: 14px;
 }
 
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 
@@ -380,4 +388,11 @@ body {
 .form-check-input:focus {
     outline: 2px solid #2c5530;
     outline-offset: 2px;
+}
+
+.modal-blur {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    background-color: rgba(0, 0, 0, 0.5); /* Fallback for browsers that don't support backdrop-filter */
+    margin:0;
 }

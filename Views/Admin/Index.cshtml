@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    var activeTab = ViewData["ActiveTab"]?.ToString() ?? "bookings";
+}
+
+<div class="bg-light-brand min-vh-100">
+    <!-- header -->
+    <section class="bg-primary-brand text-light-brand py-4">
+        <div class="container">
+            <h1 class="display-5 fw-bold">🛠️ Admin Dashboard</h1>
+        </div>
+    </section>
+
+    <!-- messages -->
+    <div class="container mt-3">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-2"></i>@TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+    </div>
+
+    <!-- tabs -->
+    <div class="container py-4">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link @(activeTab == "bookings" ? "active" : "")"
+                   href="@Url.Action("Index", "Admin", new { activeTab = "bookings" })">
+                    <i class="bi bi-calendar-check me-2"></i>Bookings
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(activeTab == "tables" ? "active" : "")"
+                   href="@Url.Action("Index", "Admin", new { activeTab = "tables" })">
+                    <i class="bi bi-grid-3x3 me-2"></i>Tables
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(activeTab == "menu" ? "active" : "")"
+                   href="@Url.Action("Index", "Admin", new { activeTab = "menu" })">
+                    <i class="bi bi-menu-button-wide me-2"></i>Menu
+                </a>
+            </li>
+        </ul>
+
+        <div class="admin-card p-4">
+            @if (activeTab == "bookings")
+            {
+                @await Component.InvokeAsync("Bookings")
+            }
+            else if (activeTab == "tables")
+            {
+                @await Component.InvokeAsync("Tables")
+            }
+            else if(activeTab == "menu")
+            {
+                @await Component.InvokeAsync("MenuItems")
+            }
+        </div>
+    </div>
+</div>

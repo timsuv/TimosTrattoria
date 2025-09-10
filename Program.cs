@@ -14,6 +14,8 @@ namespace RestautantMvc
             });
             builder.Services.AddScoped<IMenuApiService, MenuApiService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IBookingApiServices, BookingApiService>();
+            builder.Services.AddScoped<ITableApiService, TableApiService>();
 
 
             builder.Services.AddSession(options =>

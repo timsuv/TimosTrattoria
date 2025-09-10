@@ -1,0 +1,110 @@
+﻿@using RestautantMvc.ViewModels
+@model TablesViewModel
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Manage Tables</h3>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createTableModal">
+        <i class="bi bi-plus-circle me-2"></i>Add New Table
+    </button>
+</div>
+
+@if (Model.Tables.Any())
+{
+    <div class="row g-3">
+        @foreach (var table in Model.Tables)
+        {
+            <div class="col-md-4 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div style="font-size: 2rem;">🪑</div>
+                        <h5 class="card-title">Table @table.TableNumber</h5>
+                        <p class="card-text">
+                            <i class="bi bi-people me-1"></i>Capacity: @table.Capacity
+                        </p>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-sm btn-outline-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#updateTableModal-@table.TableId">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <form asp-action="DeleteTable" asp-controller="Admin" method="post"
+                                  onsubmit="return confirm('Delete this table?');"
+                                  class="d-inline">
+                                <input type="hidden" name="id" value="@table.TableId" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- update modal -->
+                <div class="modal fade modal-blur" id="updateTableModal-@table.TableId" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form asp-action="UpdateTable" asp-controller="Admin" method="post">
+                                <div class="modal-header bg-warning">
+                                    <h5 class="modal-title">Update Table @table.TableNumber</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="id" value="@table.TableId" />
+                                    <div class="mb-3">
+                                        <label class="form-label">Table Number</label>
+                                        <input type="number" class="form-control" name="TableNumber"
+                                               value="@table.TableNumber" required min="1" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Capacity</label>
+                                        <input type="number" class="form-control" name="Capacity"
+                                               value="@table.Capacity" required min="1" max="20" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-warning">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="bi bi-grid-3x3" style="font-size: 3rem;"></i>
+        <p class="text-muted mt-3">No tables found. Create your first table!</p>
+    </div>
+}
+
+<!-- create table modal -->
+<div class="modal fade modal-blur" id="createTableModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="CreateTable" asp-controller="Admin" method="post">
+                <div class="modal-header bg-success text-light">
+                    <h5 class="modal-title">Create New Table</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Table Number</label>
+                        <input type="number" class="form-control" name="TableNumber" required min="1" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Capacity</label>
+                        <input type="number" class="form-control" name="Capacity" required min="1" max="20" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Create Table</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

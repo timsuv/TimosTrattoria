@@ -10,7 +10,9 @@ namespace RestautantMvc.Services
         Task<IEnumerable<BookingResponse>> GetAllBookings();
         Task<BookingResponse?> GetBookingById(int id);
         Task<bool> DeleteBooking(int id);
-        Task<bool> UpdateBookingTable(int bookingId, int newTableId);
+        Task<bool> UpdateBookingTable(int bookingId, int newTableId, DateTime newDate, TimeSpan newTime, int newNumberOfGuests);
+        Task<BookingResponse?> CreateBooking(CreateBooking createDto);
+
     }
     public class BookingApiService : IBookingApiServices
     {
@@ -98,7 +100,7 @@ namespace RestautantMvc.Services
                 return null;
             }
         }
-        public async Task<bool> UpdateBookingTable(int bookingId, int newTableId)
+        public async Task<bool> UpdateBookingTable(int bookingId, int tableId, DateTime newDate, TimeSpan newTime, int newNumberOfGuests )
         {
             try
             {
@@ -110,10 +112,10 @@ namespace RestautantMvc.Services
 
                 var updateRequest = new
                 {
-                    BookingDate = currentBooking.BookingDate,
-                    BookingTime = currentBooking.BookingTime,
-                    NumberOfGuests = currentBooking.NumberOfGuests,
-                    TableId = newTableId
+                    BookingDate = newDate,
+                    BookingTime = newTime,
+                    NumberOfGuests = newNumberOfGuests,
+                    TableId = tableId
 
                 };
 
@@ -131,5 +133,51 @@ namespace RestautantMvc.Services
 
 
         }
+
+        public async Task<bool> UpdateBooking(int bookingId, UpdateBooking updateDto)
+        {
+            try
+            {
+                SetAuthHeader();
+
+                var json = JsonSerializer.Serialize(updateDto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync($"bookings/{bookingId}", content);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public async Task<BookingResponse?> CreateBooking(CreateBooking createDto)
+        {
+            try
+            {
+                SetAuthHeader();
+
+                var json = JsonSerializer.Serialize(createDto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync("bookings", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseJson = await response.Content.ReadAsStringAsync();
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    return JsonSerializer.Deserialize<BookingResponse>(responseJson, options);
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }
