@@ -9,9 +9,12 @@ namespace RestautantMvc.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-        public AuthController(IAuthService authService)
+        private readonly IConfiguration _configuration;
+
+        public AuthController(IAuthService authService, IConfiguration configuration)
         {
             _authService = authService;
+            _configuration = configuration;
         }
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
@@ -25,6 +28,12 @@ namespace RestautantMvc.Controllers
                 ReturnUrl = returnUrl
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -48,6 +57,36 @@ namespace RestautantMvc.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "Invalide username or password.");
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if(!ModelState.IsValid)
+                return View(model);
+
+            var secret = _configuration["AdminRegistration:Code"];
+            if(model.SecretCode != secret)
+            {
+                ModelState.AddModelError("", "Invalid secret code. Ask the management for the code");
+                return View(model);
+            }
+
+            var registerRequest = new AdminRegisterRequest
+            {
+                Username = model.Username,
+                Password = model.Password,
+                ConfirmPassword = model.ConfirmPassword
+            };
+
+            var result = await _authService.Register(registerRequest);
+            if (result != null)
+            {
+                TempData["SuccessMessage"] = "Admin registered successfully! Please login.";
+                return RedirectToAction("Login");
+            }
+
+            ModelState.AddModelError("", "Registration failed. Try again.");
             return View(model);
         }
 

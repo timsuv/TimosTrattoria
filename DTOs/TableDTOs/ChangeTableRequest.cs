@@ -1,4 +1,4 @@
-﻿namespace RestautantMvc.DTOs
+﻿namespace RestautantMvc.DTOs.TableDTOs
 {
     public class ChangeTableRequest
     {

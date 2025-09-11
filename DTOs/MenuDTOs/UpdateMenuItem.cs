@@ -1,7 +1,7 @@
 ﻿using RestautantMvc.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace RestautantMvc.DTOs
+namespace RestautantMvc.DTOs.MenuDTOs
 {
     public class UpdateMenuItem
     {
@@ -16,7 +16,7 @@ namespace RestautantMvc.DTOs
         [StringLength(500)]
         public string? Description { get; set; }
 
-        public bool IsPopular { get; set; } = false;
+        public bool IsPopular { get; set; } 
 
         [Url]
         public string? BildUrl { get; set; }

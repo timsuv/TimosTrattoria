@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using RestautantMvc.DTOs;
+using RestautantMvc.DTOs.BookingDTOs;
 using System.Text;
 using System.Text.Json;
 

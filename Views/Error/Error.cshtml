@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Oops! Something went wrong";
+    Layout = "_Layout";
+}
+
+<div class="bg-light-brand min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <!-- error icon -->
+                <div class="mb-4" style="font-size: 8rem; line-height: 1;">
+                    😵‍💫
+                </div>
+
+                <!-- error code -->
+                <h1 class="display-1 fw-bold text-danger mb-0" style="opacity: 0.1; font-size: 10rem; margin-top: -100px; position: relative; z-index: -1;">
+                    Error
+                </h1>
+
+                <!-- error title -->
+                <h2 class="display-5 fw-bold text-dark-brand mb-3">
+                    Something Unexpected Happened
+                </h2>
+
+               
+                <p class="lead text-muted-custom mb-4">
+                    We’re sorry, but an unexpected error occurred while processing your request.
+                    Please try again, or contact support if the issue continues.
+                </p>
+
+               
+                <div class="card-muted p-4 rounded mb-4 mx-auto" style="max-width: 500px;">
+                    <p class="mb-0 fst-italic">
+                        "Even the best chefs sometimes burn the pasta — the secret is to start fresh."
+                    </p>
+                    <small class="text-muted">- Italian Wisdom</small>
+                </div>
+
+                <!-- action btn -->
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-5">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary-brand btn-lg px-4">
+                        <i class="bi bi-house-door me-2"></i>Go to Homepage
+                    </a>
+                    <button onclick="location.reload()" class="btn btn-secondary-brand btn-lg px-4">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Try Again
+                    </button>
+                    <button onclick="history.back()" class="btn btn-outline-dark btn-lg px-4">
+                        <i class="bi bi-arrow-left me-2"></i>Go Back
+                    </button>
+                </div>
+
+                <!-- info -->
+                <div class="mt-5 pt-3 border-top">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="alert alert-warning bg-light border-warning" role="alert">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                <strong>Technical details may be logged for investigation.</strong>
+                                Don’t worry — our team is on it!
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted-custom mt-3 mb-2">Need immediate help? Reach out:</p>
+                    <p class="mb-0">
+                        <a href="tel:0831010" class="text-decoration-none text-secondary-brand fw-semibold">
+                            <i class="bi bi-telephone me-2"></i>08 31 01 00
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

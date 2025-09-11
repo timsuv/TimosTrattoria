@@ -1,4 +1,4 @@
-﻿namespace RestautantMvc.DTOs
+﻿namespace RestautantMvc.DTOs.BookingDTOs
 {
     public class DeleteBookingRequest
     {

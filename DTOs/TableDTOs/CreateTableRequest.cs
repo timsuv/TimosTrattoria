@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestautantMvc.DTOs
+namespace RestautantMvc.DTOs.TableDTOs
 {
     public class CreateTableRequest
     {

@@ -1,4 +1,4 @@
-﻿using RestautantMvc.DTOs;
+﻿using RestautantMvc.DTOs.MenuDTOs;
 
 namespace RestautantMvc.ViewModels
 {

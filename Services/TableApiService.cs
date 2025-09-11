@@ -1,4 +1,4 @@
-﻿using RestautantMvc.DTOs;
+﻿using RestautantMvc.DTOs.TableDTOs;
 using System.Text;
 using System.Text.Json;
 

@@ -1,4 +1,5 @@
-﻿using RestautantMvc.DTOs;
+﻿using RestautantMvc.DTOs.BookingDTOs;
+using RestautantMvc.DTOs.TableDTOs;
 
 namespace RestautantMvc.ViewModels
 {

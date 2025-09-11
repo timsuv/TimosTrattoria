@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestautantMvc.DTOs;
+using RestautantMvc.DTOs.MenuDTOs;
 using RestautantMvc.Models;
 using RestautantMvc.Services;
 

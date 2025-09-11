@@ -1,4 +1,4 @@
-﻿using RestautantMvc.DTOs;
+﻿using RestautantMvc.DTOs.AuthDTOs;
 using System.Text;
 using System.Text.Json;
 
@@ -10,6 +10,7 @@ namespace RestautantMvc.Services
         Task Logout();
         Task<bool> IsAuth();
         Task<string> GetCurrentUser();
+        Task<AdminRegisterResponse?> Register(AdminRegisterRequest request);
     }
     public class AuthService : IAuthService
     {
@@ -65,6 +66,37 @@ namespace RestautantMvc.Services
                 return null;
             }
         }
+        public async Task<AdminRegisterResponse?> Register(AdminRegisterRequest request)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(request);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync("Auth/register", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var responseJson = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var registerResponse = JsonSerializer.Deserialize<AdminRegisterResponse>(responseJson, options);
+                return registerResponse;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
+
 
         public Task Logout()
         {

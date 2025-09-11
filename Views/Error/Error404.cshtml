@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Page Not Found";
+}
+<div class="bg-light-brand min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="mb-4" style="font-size: 8rem; line-height: 1;">
+                    🍝
+                </div>
+
+                <h1 class="display-1 fw-bold text-primary-brand mb-0">404</h1>
+
+                <!-- error title -->
+                <h2 class="display-5 fw-bold text-dark-brand mb-3">Oops! This Page Got Lost in the Kitchen!</h2>
+
+              
+                <p class="lead text-muted-custom mb-4">
+                    Mamma mia! It seems like this page took a wrong turn on its way from the kitchen.
+                    The page you're looking for doesn't exist or has been moved to another location.
+                </p>
+
+                <div class="card-muted p-4 rounded mb-4 mx-auto" style="max-width: 500px;">
+                    <p class="mb-0 fst-italic">
+                        "When you get lost, the best thing to do is return home... or in this case, to our homepage!"
+                    </p>
+                    <small class="text-muted">- Italian Proverb (sort of)</small>
+                </div>
+
+                <!-- action btns -->
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-5">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary-brand btn-lg px-4">
+                        <i class="bi bi-house-door me-2"></i>Back to Home
+                    </a>
+                    <a asp-controller="Menu" asp-action="Index" class="btn btn-secondary-brand btn-lg px-4">
+                        <i class="bi bi-book me-2"></i>View Our Menu
+                    </a>
+                    <button onclick="history.back()" class="btn btn-outline-dark btn-lg px-4">
+                        <i class="bi bi-arrow-left me-2"></i>Go Back
+                    </button>
+                </div>
+
+                
+                <div class="mt-5 pt-3 border-top">
+                    <p class="text-muted-custom mb-2">Still can't find what you're looking for?</p>
+                    <p class="mb-0">
+                        <a href="tel:0831010" class="text-decoration-none text-secondary-brand fw-semibold">
+                            <i class="bi bi-telephone me-2"></i>Call us: 08 31 01 00
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @@keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    .display-1 {
+        font-size: 10rem;
+        opacity: 0.1;
+        position: relative;
+        margin-top: -100px;
+        z-index: -1;
+    }
+</style>

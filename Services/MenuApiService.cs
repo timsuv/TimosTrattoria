@@ -1,4 +1,4 @@
-﻿using RestautantMvc.DTOs;
+﻿using RestautantMvc.DTOs.MenuDTOs;
 using RestautantMvc.Models;
 using RestautantMvc.Services;
 using System.ComponentModel;
@@ -13,6 +13,8 @@ namespace RestautantMvc.Services
         Task<IEnumerable<MenuItemResponse>> GetAllMenuItems();
         Task<MenuItemResponse?> GetMenuItemById(int id);
         Task<MenuItemResponse?> UpdateMenuItem(int id, UpdateMenuItem request);
+        Task<bool> DeleteItem(int id);
+        Task<MenuItemResponse?> CreateMenuItem(CreateMenuItemRequest item);
     }
 }
 
@@ -80,6 +82,39 @@ public class MenuApiService : IMenuApiService
             return null;
         }
     }
+    public async Task<MenuItemResponse?> CreateMenuItem(CreateMenuItemRequest item)
+    {
+        try
+        {
+            SetAuthHeader();
+
+            var json = JsonSerializer.Serialize(item);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("Menu", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseJson = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseJson);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                return JsonSerializer.Deserialize<MenuItemResponse>(responseJson, options);
+            }
+
+            return null;
+
+
+        }
+        catch (Exception)
+        {
+
+            return null;
+        }
+    }
     public async Task<MenuItemResponse?> UpdateMenuItem(int id, UpdateMenuItem request)
     {
         try
@@ -90,13 +125,12 @@ public class MenuApiService : IMenuApiService
                 name = request.Name,
                 price = request.Price,
                 description = request.Description,
-                category = (int)request.Category,  // Force it to be an integer
+                category = (int)request.Category,  
                 isPopular = request.IsPopular,
                 bildUrl = request.BildUrl
             };
 
             var json = JsonSerializer.Serialize(jsonObject);
-            Console.WriteLine($"Sending to API: {json}");
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PutAsync($"Menu/{id}", content);
@@ -104,7 +138,6 @@ public class MenuApiService : IMenuApiService
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"API Error: {errorContent}");
             }
             if (response.IsSuccessStatusCode)
             {
@@ -121,8 +154,22 @@ public class MenuApiService : IMenuApiService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Exception: {ex.Message}");
             return null;
+        }
+    }
+
+    public async Task<bool> DeleteItem(int id)
+    {
+        try
+        {
+            SetAuthHeader();
+            var response = await _httpClient.DeleteAsync($"Menu/{id}");
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception)
+        {
+
+            return false;
         }
     }
 

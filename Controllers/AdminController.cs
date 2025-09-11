@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-using RestautantMvc.DTOs;
+using RestautantMvc.DTOs.BookingDTOs;
+using RestautantMvc.DTOs.MenuDTOs;
+using RestautantMvc.DTOs.TableDTOs;
 using RestautantMvc.Services;
 using RestautantMvc.ViewModels;
 using System.Reflection;
@@ -43,6 +45,20 @@ namespace RestautantMvc.Controllers
             if (!await _authService.IsAuth())
             {
                 return RedirectToAction("Login", "Auth");
+            }
+            var tables = await _tableApiService.GetAllTables();
+            var selectedTable = tables.FirstOrDefault(t => t.TableId == tableId);
+
+            if (selectedTable == null)
+            {
+                TempData["ErrorMessage"] = "Selected table not found.";
+                return RedirectToAction("Index", new { activeTab = "bookings" });
+            }
+
+            if (selectedTable.Capacity < newNumberOfGuests)
+            {
+                TempData["ErrorMessage"] = $"Table {selectedTable.TableNumber} has capacity for {selectedTable.Capacity} guests, but you're trying to book for {newNumberOfGuests} guests.";
+                return RedirectToAction("Index", new { activeTab = "bookings" });
             }
 
             var result = await _bookingApiServices.UpdateBookingTable(bookingId, tableId, newDate, newTime, newNumberOfGuests);
@@ -154,7 +170,7 @@ namespace RestautantMvc.Controllers
             return RedirectToAction("Index", new { activeTab = "tables" });
         }
 
-       
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -180,6 +196,9 @@ namespace RestautantMvc.Controllers
         }
 
        
+        
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -217,23 +236,25 @@ namespace RestautantMvc.Controllers
         {
             foreach (var key in Request.Form.Keys)
             {
-                Console.WriteLine($"Form key: {key}, Value: {Request.Form[key]}");
+
             }
+
             if (!await _authService.IsAuth())
             {
                 return RedirectToAction("Login", "Auth");
             }
-           
+
             if (!ModelState.IsValid)
             {
+
+
                 TempData["ErrorMessage"] = "Please check your input. Make sure the category is right.";
                 return RedirectToAction("Index", new { activeTab = "menu" });
             }
             var result = await _menuApiService.UpdateMenuItem(id, request);
             if (result != null)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                TempData["ErrorMessage"] = $"Validation errors: {string.Join(", ", errors)}";
+
                 TempData["SuccessMessage"] = $"Menu item {result.Name} updated successfully";
             }
             else
@@ -243,6 +264,55 @@ namespace RestautantMvc.Controllers
             }
             return RedirectToAction("Index", new { activeTab = "menu" });
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateMenuItem(CreateMenuItemRequest request)
+        {
+            if (!await _authService.IsAuth())
+            {
+                return RedirectToAction("Login", "Auth");
+            }
 
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Please check your input.";
+                return RedirectToAction("Index", new { activeTab = "menu" });
+            }
+
+            var result = await _menuApiService.CreateMenuItem(request);
+
+            if (result != null)
+            {
+                TempData["SuccessMessage"] = $"Menu Item {result.Name} created successfully!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to create the item.";
+            }
+
+            return RedirectToAction("Index", new { activeTab = "menu" });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMenuItem(int id)
+        {
+            if (!await _authService.IsAuth())
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+            var result = await _menuApiService.DeleteItem(id);
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Menu item deleted successfully!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete menu item.";
+
+            }
+            return RedirectToAction("Index", new { activeTab = "menu" });
+
+        }
     }
 }
